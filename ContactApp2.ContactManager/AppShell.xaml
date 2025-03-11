@@ -4,12 +4,23 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ContactApp2.ContactManager"
+    xmlns:pages="clr-namespace:ContactApp2.ContactManager.pages"
     Shell.FlyoutBehavior="Disabled"
-    Title="ContactApp2.ContactManager">
+    Title="Add Contact">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Main">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />
+        </Tab>
+        <Tab Title="Add">
+            <ShellContent
+                ContentTemplate="{DataTemplate pages:AddPage}"
+                Route="AddPage" />
+        </Tab>
+    </TabBar>
+
+    
 
 </Shell>
