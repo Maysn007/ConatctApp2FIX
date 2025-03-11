@@ -17,7 +17,7 @@ public class Repository : IRepository
     public Repository(string file)
     {
         this._file = file;
-        // this._rootElement = XElement.Load(_file);
+        this._rootElement = XElement.Load(_file);
     }
 
 

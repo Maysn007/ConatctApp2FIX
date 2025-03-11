@@ -19,4 +19,9 @@ public class Contact
         this.Lastname = lastname;
         this.Phone = phone; 
     }
+
+    public override string ToString()
+    {
+        return Firstname + " " + Lastname;
+    }
 }

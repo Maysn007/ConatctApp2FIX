@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using ContactApp2.ContactManager.pages;
 using ContactApp2.Core.ViewModels;
 using ContactApp2.Data.Services;
 using Microsoft.Extensions.Logging;
@@ -21,10 +22,27 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<IRepository>(new Repository(""));
+
+		builder.Services.AddSingleton<AddPage>();
+        builder.Services.AddSingleton<AddViewModel>();
+
+        var path = FileSystem.AppDataDirectory;
+		System.Diagnostics.Debug.WriteLine("Pfad: " + path);
+		string file = Path.Combine(path, "contacts.xml");
+
+		if (File.Exists(file))
+		{
+			System.Diagnostics.Debug.WriteLine("File exists");
+        }
+		else
+		{
+			System.Diagnostics.Debug.WriteLine("File does not exists");
+        }
+
+		builder.Services.AddSingleton<IRepository>(new Repository(file));
 
 #if DEBUG
-        builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
