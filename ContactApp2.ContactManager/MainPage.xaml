@@ -14,10 +14,20 @@
                 Command="{Binding LoadCommand}"/>
     </ContentPage.Behaviors>
 
+    <!--Converter von Bool zu Object für "IsVisible" bei Grid.ColumnSpan von dem Hauptgrid (Grid in Column 0) -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:BoolToObjectConverter x:Key="ShowPanelConverter" 
+                TrueObject="1" 
+                FalseObject="2"/>
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <Grid ColumnDefinitions="2*, *">
 
         <!--Column 0-->
-        <Grid RowDefinitions="Auto ,Auto,*, Auto">
+        <Grid RowDefinitions="Auto ,Auto,*, Auto" Grid.ColumnSpan="{Binding ShowDetails, Converter={StaticResource ShowPanelConverter}}">
 
             <Label Grid.Row="0" Margin="10" FontSize="Default"
            Text="{Binding SelectedContact.Phone, StringFormat='Ausgewählt: {0}', FallbackValue='-'}" />
@@ -42,13 +52,20 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button Grid.Row="3" Text="Load"
-            Command="{Binding LoadCommand}" />
+            <Button Grid.Row="3" Text="Toggle"
+            Command="{Binding ToggleCommand}" />
 
         </Grid>
 
         <!--Column 1-->
-        
+        <Grid IsVisible="{Binding ShowDetails}" Grid.Column="1" BackgroundColor="{StaticResource Gray100}">
+            <StackLayout>
+                <Label Margin="10" FontSize="Large" Text="Kontaktdetails" />
+                <Label Text="{Binding Phone}"/>
+                <Label Text="{Binding Email}"/>
+                
+            </StackLayout>
+        </Grid>
 
 
 
