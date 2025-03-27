@@ -19,8 +19,7 @@
         <Label Grid.Row="2" Text="Telefon" />
         <Entry Grid.Row="2" Text="{Binding Phone}" Grid.Column="1"/>
 
-        <Button Text="Save contact"/>
-        <Entry Grid.Row="3" Text="{Binding SaveCommand}" Grid.Column="2"/>
+        <Button Text="Save contact" Command="{Binding SaveCommand}" Grid.ColumnSpan="2" Grid.Row="3"/>
 
     </Grid>
 </ContentPage>

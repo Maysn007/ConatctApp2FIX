@@ -1,6 +1,7 @@
 ﻿using ContactApp2.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,18 @@ public class Repository : IRepository
     public Repository(string file)
     {
         this._file = file;
-        this._rootElement = XElement.Load(_file);
+        
+
+        if(File.Exists(file))
+        {
+            this._rootElement = XElement.Load(_file);
+        }
+        else
+        {
+            this._rootElement = XElement.Load("contacts");
+        }
+
+
     }
 
 
@@ -33,5 +45,37 @@ public class Repository : IRepository
         this._contacts = contacts.ToList();
 
         return this._contacts;
+    }
+
+    public bool Save(Contact c)
+    {
+        try
+        {
+            var contactElement = new XElement("contact");
+
+            var firstnameAttribute = new XAttribute("firstname", c.Firstname);
+            contactElement.Add(firstnameAttribute);
+
+            var lastnameAttribute = new XAttribute("lastname", c.Lastname);
+            contactElement.Add(lastnameAttribute);
+
+            var phoneAttribute = new XAttribute("phone", c.Phone);
+            contactElement.Add(phoneAttribute);
+
+            this._rootElement.Add(contactElement);
+
+            this._rootElement.Save(this._file);
+
+            return true;
+        }
+
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex.Message);
+            return false;
+        }
+
+
+
     }
 }

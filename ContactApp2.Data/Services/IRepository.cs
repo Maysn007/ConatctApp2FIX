@@ -10,4 +10,6 @@ namespace ContactApp2.Data.Services;
 public interface IRepository
 {
     List<Contact> Get();
+
+    bool Save(Contact c);
 }
