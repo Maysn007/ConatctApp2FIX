@@ -13,36 +13,47 @@
                 EventName="Appearing"
                 Command="{Binding LoadCommand}"/>
     </ContentPage.Behaviors>
-    
-    
-    <Grid RowDefinitions="Auto ,Auto,*, Auto">
 
-        <Label Grid.Row="0" Margin="10" FontSize="Default"
-               Text="{Binding SelectedContact.Phone, StringFormat='Ausgewählt: {0}', FallbackValue='-'}" />
+    <Grid ColumnDefinitions="2*, *">
 
-        <Grid Grid.Row="1" ColumnDefinitions="2*, *" RowDefinitions="Auto">
-            <Label Margin="10,0,0,0" FontSize="24" Text="Name"/>
-            <Image HeightRequest="20" Grid.Column="1" Source="phone.png"/>
-        </Grid>
+        <!--Column 0-->
+        <Grid RowDefinitions="Auto ,Auto,*, Auto">
 
-        <CollectionView SelectionMode="Single" SelectedItem="{Binding SelectedContact}"
-                        Grid.Row="2" Margin="10" ItemsSource="{Binding Contacts}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Contact">
-                    <Grid ColumnDefinitions="2*, *" RowDefinitions="Auto, Auto">
-                        <Label FontAttributes="Bold"
-                               Text="{Binding Lastname}" />
-                        <Label Grid.Column="1" Text="{Binding Phone}" />
-                        <Label Grid.Row="1" Grid.ColumnSpan="2"
-                               Text="{Binding Firstname}" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate> 
-        </CollectionView>
+            <Label Grid.Row="0" Margin="10" FontSize="Default"
+           Text="{Binding SelectedContact.Phone, StringFormat='Ausgewählt: {0}', FallbackValue='-'}" />
+
+            <Grid Grid.Row="1" ColumnDefinitions="2*, *" RowDefinitions="Auto">
+                <Label Margin="10,0,0,0" FontSize="24" Text="Name"/>
+                <Image HeightRequest="20" Grid.Column="1" Source="phone.png"/>
+            </Grid>
+
+            <CollectionView SelectionMode="Single" SelectedItem="{Binding SelectedContact}"
+                    Grid.Row="2" Margin="10" ItemsSource="{Binding Contacts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Contact">
+                        <Grid ColumnDefinitions="2*, *" RowDefinitions="Auto, Auto">
+                            <Label FontAttributes="Bold"
+                           Text="{Binding Lastname}" />
+                            <Label Grid.Column="1" Text="{Binding Phone}" />
+                            <Label Grid.Row="1" Grid.ColumnSpan="2"
+                           Text="{Binding Firstname}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Button Grid.Row="3" Text="Load"
-                Command="{Binding LoadCommand}" />
+            Command="{Binding LoadCommand}" />
+
+        </Grid>
+
+        <!--Column 1-->
+        
+
+
 
     </Grid>
+    
+    
 
 </ContentPage>
