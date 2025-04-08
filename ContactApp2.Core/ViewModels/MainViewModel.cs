@@ -16,11 +16,26 @@ namespace ContactApp2.Core.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
+    [ObservableProperty]
+    private string _firstname = string.Empty;
+
+    [ObservableProperty]
+    private string _lastname = string.Empty;
+
+    [ObservableProperty]
+    private string _phone = string.Empty;
+
     IRepository _repository;
+
     private bool IstLoaded = false;
 
     [ObservableProperty]
     private Contact? _selectedContact = null;
+
+    partial void OnSelectedContactChanged(Contact? value)
+    {
+        this.ShowDetails = true;
+    }
 
     [ObservableProperty]
     private bool _showDetails = false;
@@ -75,4 +90,18 @@ public partial class MainViewModel : ObservableObject
 
         }
     }
+    [RelayCommand]
+    void Delete(Contact c)
+    {
+        var result = _repository.Delete(c);
+
+        if (result)
+        {
+            WeakReferenceMessenger.Default.Send(new DeleteContactMessage(c));
+            this.Firstname = string.Empty;
+            this.Lastname = string.Empty;
+            this.Phone = string.Empty;
+        }
+    }
+
 }

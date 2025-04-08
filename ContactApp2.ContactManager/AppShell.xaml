@@ -19,6 +19,11 @@
                 ContentTemplate="{DataTemplate pages:AddPage}"
                 Route="AddPage" />
         </Tab>
+        <Tab Title="Report">
+            <ShellContent
+         ContentTemplate="{DataTemplate pages:ReportPage}"
+         Route="ReportPage" />
+        </Tab>
     </TabBar>
 
     

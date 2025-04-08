@@ -12,4 +12,5 @@ public interface IRepository
     List<Contact> Get();
 
     bool Save(Contact c);
+    bool Delete(Contact c);
 }

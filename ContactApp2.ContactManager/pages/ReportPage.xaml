@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ContactApp2.ContactManager.pages.ReportPage"
+             xmlns:viewmodels="clr-namespace:ContactApp2.Core.ViewModels;assembly=ContactApp2.Core"
+             x:DataType="viewmodels:ReportViewModel"
+             Title="ReportPage">
+    <Grid>
+        <CollectionView ItemsSource="{Binding Nums}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label FontSize="Large" Text="{Binding .}"/>
+                        <Button Text="OK" Command="{Binding 
+                            Source={RelativeSource AncestorType={x:Type viewmodels:ReportViewModel}}, Path=SetOutputCommand}" CommandParameter="{Binding .}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+            
+    </Grid>
+</ContentPage>

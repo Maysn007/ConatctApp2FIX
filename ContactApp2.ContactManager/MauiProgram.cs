@@ -26,6 +26,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<AddPage>();
         builder.Services.AddSingleton<AddViewModel>();
 
+		builder.Services.AddSingleton<ReportPage>();
+		builder.Services.AddSingleton<ReportViewModel>();
+
         var path = FileSystem.AppDataDirectory;
 		System.Diagnostics.Debug.WriteLine("Pfad: " + path);
 		string file = Path.Combine(path, "contacts.xml");

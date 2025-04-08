@@ -74,8 +74,33 @@ public class Repository : IRepository
             System.Diagnostics.Debug.WriteLine(ex.Message);
             return false;
         }
+    }
 
+    public bool Delete(Contact c)
+    {
+        try
+        {
+            var contactElement = this._rootElement.Elements("contact")
+                .FirstOrDefault(x => x.Attribute("firstname")?.Value == c.Firstname &&
+                                     x.Attribute("lastname")?.Value == c.Lastname &&
+                                     x.Attribute("phone")?.Value == c.Phone);
+            if (contactElement != null)
+            {
+                contactElement.Remove();
+                this._rootElement.Save(this._file);
+                return true;
+            }
+            else
+            {
+                return false;
 
+            }    
+        }
 
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex.Message);
+            return false;
+        }
     }
 }
