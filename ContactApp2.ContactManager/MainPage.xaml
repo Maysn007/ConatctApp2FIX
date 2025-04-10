@@ -24,6 +24,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Items" IconImageSource="trash.png" Command="{Binding Clear}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
     <Grid ColumnDefinitions="2*, *">
 
         <!--Column 0-->
@@ -43,18 +47,23 @@
 
             <CollectionView SelectionMode="Single" SelectedItem="{Binding SelectedContact}"
                     Grid.Row="2" Margin="10" ItemsSource="{Binding Contacts}">
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label HorizontalTextAlignment="Center" Text="Keine Kontakte vorhanden" FontSize="Header"></Label>
+                    </StackLayout>
+                </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Contact">
                         <Grid ColumnDefinitions="*,2*, *" RowDefinitions="Auto, Auto, Auto">
-                            <Image HeightRequest="20" Grid.Row="1" Source="trash.svg">
+                            <Image HeightRequest="20" Grid.Column="0" Grid.Row="0" Source="trash.png">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=DeleteCommand}" />
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=RemoveContactCommand}" CommandParameter="{Binding .}" />
                                 </Image.GestureRecognizers>
                             </Image>
                             <Label FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Text="{Binding Lastname}" />
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Firstname}" Grid.Column="1" />
                             <Label Grid.Column="2" Grid.Row="1" Text="{Binding Phone}" />
-                            <Label Grid.Row="1" Grid.ColumnSpan="2"
-                           Text="{Binding Firstname}" Grid.Column="1" />
+                            
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -77,7 +86,7 @@
                         <Label.Text>
                             <MultiBinding StringFormat="{}Name: {0} {1}">
                                 <Binding Path="SelectedContact.Firstname" FallbackValue="-"/>
-                                <Binding Path="SelectedContact.Firstname" FallbackValue="-"/>
+                                <Binding Path="SelectedContact.Lastname" FallbackValue="-"/>
                             </MultiBinding>
                         </Label.Text>
                     </Label>

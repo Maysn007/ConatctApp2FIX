@@ -4,13 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using ContactApp2.Core.Messages;
 using ContactApp2.Data.Models;
 using ContactApp2.Data.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactApp2.Core.ViewModels;
 
@@ -68,7 +62,7 @@ public partial class MainViewModel : ObservableObject
     ObservableCollection<Contact> _contacts = new();
 
     [RelayCommand]
-    private void Toggle() 
+    private void Toggle()
     {
         this.ShowDetails = !this.ShowDetails;
     }
@@ -91,17 +85,20 @@ public partial class MainViewModel : ObservableObject
         }
     }
     [RelayCommand]
-    void Delete(Contact c)
+    void RemoveContact(Contact contact)
     {
-        var result = _repository.Delete(c);
+        var result = _repository.Delete(contact);
+        this.SelectedContact = null;
+        this.ShowDetails = false;
 
         if (result)
         {
-            WeakReferenceMessenger.Default.Send(new DeleteContactMessage(c));
-            this.Firstname = string.Empty;
-            this.Lastname = string.Empty;
-            this.Phone = string.Empty;
+            Contacts.Remove(contact);
+            WeakReferenceMessenger.Default.Send(new RefreshMessage("refresh"));
         }
     }
-
+    public void Clear()
+    {
+        _repository.Clear();
+    }
 }

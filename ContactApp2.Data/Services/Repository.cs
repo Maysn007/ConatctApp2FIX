@@ -18,9 +18,9 @@ public class Repository : IRepository
     public Repository(string file)
     {
         this._file = file;
-        
 
-        if(File.Exists(file))
+
+        if (File.Exists(file))
         {
             this._rootElement = XElement.Load(_file);
         }
@@ -40,8 +40,9 @@ public class Repository : IRepository
                            contact.Attribute("firstname")?.Value ?? "",
                            contact.Attribute("lastname")?.Value ?? "",
                            contact.Attribute("phone")?.Value ?? ""
-                       ) { Email = contact.Attribute("email")?.Value ?? "" };
-        
+                       )
+                       { Email = contact.Attribute("email")?.Value ?? "" };
+
         this._contacts = contacts.ToList();
 
         return this._contacts;
@@ -61,6 +62,7 @@ public class Repository : IRepository
 
             var phoneAttribute = new XAttribute("phone", c.Phone);
             contactElement.Add(phoneAttribute);
+
 
             this._rootElement.Add(contactElement);
 
@@ -94,9 +96,23 @@ public class Repository : IRepository
             {
                 return false;
 
-            }    
+            }
         }
 
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex.Message);
+            return false;
+        }
+    }
+    public bool Clear()
+    {
+        try
+        {
+            this._rootElement.RemoveAll();
+            this._rootElement.Save(this._file);
+            return true;
+        }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine(ex.Message);

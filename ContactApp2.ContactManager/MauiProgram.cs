@@ -3,6 +3,8 @@ using ContactApp2.ContactManager.pages;
 using ContactApp2.Core.ViewModels;
 using ContactApp2.Data.Services;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
+
 
 namespace ContactApp2.ContactManager;
 
@@ -14,6 +16,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -28,6 +31,7 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<ReportPage>();
 		builder.Services.AddSingleton<ReportViewModel>();
+
 
         var path = FileSystem.AppDataDirectory;
 		System.Diagnostics.Debug.WriteLine("Pfad: " + path);

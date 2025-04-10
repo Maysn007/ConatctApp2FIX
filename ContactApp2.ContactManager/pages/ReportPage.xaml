@@ -3,20 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactApp2.ContactManager.pages.ReportPage"
              xmlns:viewmodels="clr-namespace:ContactApp2.Core.ViewModels;assembly=ContactApp2.Core"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              x:DataType="viewmodels:ReportViewModel"
              Title="ReportPage">
+    <!--
     <Grid>
-        <CollectionView ItemsSource="{Binding Nums}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label FontSize="Large" Text="{Binding .}"/>
-                        <Button Text="OK" Command="{Binding 
-                            Source={RelativeSource AncestorType={x:Type viewmodels:ReportViewModel}}, Path=SetOutputCommand}" CommandParameter="{Binding .}" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-            
-    </Grid>
+    <CollectionView ItemsSource="{Binding Nums}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout>
+                    <Label FontSize="Large" Text="{Binding .}"/>
+                    <Button Text="OK" Command="{Binding 
+                        Source={RelativeSource AncestorType={x:Type viewmodels:ReportViewModel}}, Path=SetOutputCommand}" CommandParameter="{Binding .}" />
+                </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>  
+</Grid>
+    -->
+
+
+
+
+
+    <chart:SfCartesianChart>
+
+        <chart:SfCartesianChart.Title>
+            <Label HorizontalTextAlignment="Center" FontSize="Header" TextColor="MintCream" Text="Größenvergleich"/>
+        </chart:SfCartesianChart.Title>
+
+        <chart:SfCartesianChart.Legend>
+            <chart:ChartLegend/>
+        </chart:SfCartesianChart.Legend>
+
+        <chart:SfCartesianChart.XAxes>
+            <chart:CategoryAxis>
+                <chart:CategoryAxis.Title>
+                    <chart:ChartAxisTitle Text="Name"/>
+                </chart:CategoryAxis.Title>
+            </chart:CategoryAxis>
+        </chart:SfCartesianChart.XAxes>
+
+        <chart:SfCartesianChart.YAxes>
+            <chart:NumericalAxis>
+                <chart:NumericalAxis.Title>
+                    <chart:ChartAxisTitle Text="Grösse"/>
+                </chart:NumericalAxis.Title>
+            </chart:NumericalAxis>
+        </chart:SfCartesianChart.YAxes>
+        
+        <chart:ColumnSeries ItemsSource="{Binding Data}"
+                            XBindingPath="Description" 
+                            YBindingPath="Number"
+                            EnableTooltip="True"
+                            ShowDataLabels="True"
+                            Label="Größe">
+            <chart:ColumnSeries.DataLabelSettings>
+                <chart:CartesianDataLabelSettings LabelPlacement="Inner"/>
+            </chart:ColumnSeries.DataLabelSettings>
+        </chart:ColumnSeries>
+
+    </chart:SfCartesianChart>
+
+
 </ContentPage>

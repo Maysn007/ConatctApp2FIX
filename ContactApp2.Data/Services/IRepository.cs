@@ -13,4 +13,6 @@ public interface IRepository
 
     bool Save(Contact c);
     bool Delete(Contact c);
+
+    bool Clear();
 }

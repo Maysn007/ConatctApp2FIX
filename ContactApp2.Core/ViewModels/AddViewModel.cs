@@ -40,11 +40,12 @@ public partial class AddViewModel : ObservableObject
         if (result)
         {
             WeakReferenceMessenger.Default.Send(new AddContactMessage(c));
-            {
-                this.Firstname = string.Empty;
+            WeakReferenceMessenger.Default.Send(new RefreshMessage("refresh"));
+
+            this.Firstname = string.Empty;
                 this.Lastname = string.Empty;
                 this.Phone = string.Empty;
-            }
+            
         }
     }
 
